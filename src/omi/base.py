@@ -168,7 +168,7 @@ def __get_metadata_specs_for_oep(metadata_version: str) -> MetadataSpecification
     module_path = pathlib.Path(metadata_module.__file__).parent
     specs = {}
     for item in ("schema", "template", "example"):
-        with (module_path / f"{item}.json").open("r") as f:
+        with (module_path / f"{item}.json").open("r", encoding="utf-8") as f:
             specs[item] = json.loads(f.read())
     return MetadataSpecification(**specs)
 

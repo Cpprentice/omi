@@ -118,7 +118,7 @@ def infer_file_metadata(file_path: Path) -> dict:
     }
 
     if file_format == "CSV":
-        with file_path.open("r") as f:
+        with file_path.open("r", encoding="utf-8") as f:
             fields = infer_metadata(f, "OEP")["resources"][0]["schema"]
 
         resource["schema"] = fields
