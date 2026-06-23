@@ -18,6 +18,7 @@ omi assemble \
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Optional
 
@@ -36,6 +37,7 @@ from omi.creation.init import (
     init_from_oem_json,
     init_resources_from_files,
 )
+from omi.conversion import convert_metadata, ConversionError
 from omi.creation.utils import (
     DEFAULT_CONCAT_LIST_KEYS,
     apply_template_to_resources,
@@ -307,6 +309,50 @@ def push_oep_one_cmd(  # noqa: PLR0913
     )
 
     click.echo(f"Updated metadata for {oep_table}")
+
+
+@grp.command("convert")
+@click.option(
+    "--input",
+    "-i",
+    "input_file",
+    required=True,
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Input OEMetadata JSON file.",
+)
+@click.option(
+    "--target-version",
+    "-t",
+    required=True,
+    type=click.Choice(["OEP-1.6.0", "OEMetadata-2.0"], case_sensitive=False),
+    help="Target metadata version.",
+)
+@click.option(
+    "--output",
+    "-o",
+    default=None,
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="Output file (writes to stdout if omitted).",
+)
+def convert_cmd(
+    input_file: Path,
+    target_version: str,
+    output: Optional[Path],
+) -> None:
+    """Convert OEMetadata between versions."""
+    metadata = json.loads(input_file.read_text(encoding="utf-8"))
+    try:
+        converted = convert_metadata(metadata, target_version)
+    except ConversionError as err:
+        click.secho(f"Conversion failed: {err}", fg="red", err=True)
+        raise click.Abort from err
+
+    result = json.dumps(converted, ensure_ascii=False, indent=2)
+    if output:
+        output.write_text(result, encoding="utf-8")
+        click.echo(f"Converted metadata written to {output}")
+    else:
+        click.echo(result)
 
 
 @click.group()
