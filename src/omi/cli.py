@@ -18,8 +18,10 @@ omi assemble \
 
 from __future__ import annotations
 
+import contextlib
 import json
 from pathlib import Path
+import sys
 from typing import Optional
 
 import click
@@ -44,6 +46,7 @@ from omi.creation.utils import (
     load_parts,
 )
 from omi.inspection import inspect_db_table
+from omi.transformation import TransformationError, transform_metadata
 
 
 def _infer_db_targets(resource_name: str, db_schema: Optional[str], db_table: Optional[str]) -> tuple[str, str]:
@@ -353,6 +356,47 @@ def convert_cmd(
         click.echo(f"Converted metadata written to {output}")
     else:
         click.echo(result)
+
+
+@grp.command("transform")
+@click.option(
+    "--input",
+    "-i",
+    "input_file",
+    required=True,
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Input Metadata file.",
+)
+@click.option(
+    "--crosswalk",
+    "-c",
+    required=True,
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Crosswalk definition file.",
+)
+@click.option(
+    "--output",
+    "-o",
+    default=None,
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="Output file (writes to stdout if omitted).",
+)
+def transform_cmd(
+    input_file: Path,
+    crosswalk_file: Path,
+    output: Optional[Path],
+) -> None:
+    """Convert between Metadata Standards."""
+    output_stream_context = open(output, 'w') if output is not None else contextlib.nullcontext(sys.stdout)
+    with output_stream_context as out_stream:
+        try:
+            transform_metadata(input_file, out_stream, crosswalk_file)
+        except TransformationError as err:
+            click.secho(f"Transformation failed: {err}", fg="red", err=True)
+            raise click.Abort from err
+
+    if output:
+        click.echo(f"Converted metadata written to {output}")
 
 
 @click.group()
