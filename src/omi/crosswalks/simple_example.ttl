@@ -1,0 +1,90 @@
+@prefix sh:   <http://www.w3.org/ns/shacl#> .
+@prefix ex:   <http://example.org/> .
+@prefix exOut:  <http://example.org/schemaOut#> .
+
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix cco: <https://terminology.tib.eu/ts/ontologies/cco> .
+@prefix csvw: <http://www.w3.org/ns/csvw#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcat: <https://www.w3.org/ns/dcat#> .
+@prefix dct: <https://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ncit: <http://purl.obolibrary.org/obo/ncit.owl> .
+@prefix oeo: <https://openenergyplatform.org/ontology/oeo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <http://schema.org/> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Rule 0: Record -> Record
+ex:RecordToRecordRule
+    a sh:NodeShape ;
+    sh:targetClass ex:Record ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX ex: <http://example.org/>
+            PREFIX exOut: <http://example.org/schemaOut#>
+            CONSTRUCT {
+                $this a exOut:Record ;
+                    exOut:contributor ?contributor .
+            }
+            WHERE {
+                $this a ex:Record .
+                
+                {
+                    $this ex:author ?contributor .
+                }
+                UNION 
+                {
+                    $this ex:contributor ?contributor .
+                }
+            }
+        """ ;
+    ] .
+
+# Rule 1: Author -> Contributor (full_name aus first_name + last_name, id = kein Wert)
+ex:AuthorToContributorRule
+    a sh:NodeShape ;
+    sh:targetClass ex:Author ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX ex: <http://example.org/>
+            PREFIX exOut: <http://example.org/schemaOut#>
+            CONSTRUCT {
+                $this a exOut:Contributor ;
+                      exOut:full_name ?fullName .
+            }
+            WHERE {
+                $this ex:first_name ?fn ;
+                      ex:last_name ?ln .
+                BIND(CONCAT(?fn, " ", ?ln) AS ?fullName)
+            }
+        """ ;
+    ] .
+
+# Rule 2: bestehender Contributor -> Contributor (name -> full_name, id bleibt erhalten)
+ex:ContributorToContributorRule
+    a sh:NodeShape ;
+    sh:targetClass ex:Contributor ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX ex: <http://example.org/>
+            PREFIX exOut: <http://example.org/schemaOut#>
+            CONSTRUCT {
+                $this a exOut:Contributor ;
+                      exOut:full_name ?name ;
+                      exOut:id ?id .
+            }
+            WHERE {
+                $this ex:name ?name .
+                OPTIONAL { $this ex:id ?id . }
+            }
+        """ ;
+    ] .

@@ -1,0 +1,11 @@
+@prefix ex: <http://example.org/> .
+
+<https://orcid.com/abc> a ex:Contributor ;
+    ex:name "Robert Oppenheimer" .
+
+[] a ex:Record ;
+    ex:author [ a ex:Author ;
+            ex:first_name "Albert" ;
+            ex:last_name "Einstein" ] ;
+    ex:contributor <https://orcid.com/abc> .
+

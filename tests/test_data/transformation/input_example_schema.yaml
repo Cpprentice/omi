@@ -1,0 +1,47 @@
+id: HackathonSchemaExample
+prefixes:
+  ex: http://example.org/
+  linkml: https://w3id.org/linkml/
+default_prefix: ex
+imports:
+- linkml:types
+classes:
+  Author:
+    name: Author
+    class_uri: ex:Author
+    attributes:
+      first_name:
+        name: first_name
+        slot_uri: ex:first_name
+        range: string
+      last_name:
+        name: last_name
+        slot_uri: ex:last_name
+        range: string
+  Contributor:
+    name: Contributor
+    class_uri: ex:Contributor
+    attributes:
+      name:
+        name: name
+        slot_uri: ex:name
+        range: string
+      id:
+        identifier: true
+        name: id
+        range: uri
+  Record:
+    class_uri: ex:Record
+    name: Record
+    attributes:
+      authors:
+        range: Author
+        multivalued: true
+        slot_uri: ex:author
+        inlined: True
+      contributors:
+        range: Contributor
+        multivalued: true
+        slot_uri: ex:contributor
+        inlined: True
+
