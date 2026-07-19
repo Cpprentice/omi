@@ -1,0 +1,416 @@
+PREFIX dck: <https://schema.datacite.org/meta/kernel-4/#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+<https://doi.org/10.82433/B09Z-4K37>
+    a dck:Resource ;
+    dck:alternateIdentifier <https://doi.org/10.82433/B09Z-4K37#alternateIdentifier-1> ;
+    dck:contributor
+        <https://doi.org/10.82433/B09Z-4K37#contributor-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#contributor-2> ,
+        <https://doi.org/10.82433/B09Z-4K37#contributor-3> ,
+        <https://doi.org/10.82433/B09Z-4K37#contributor-4> ;
+    dck:creator
+        <https://doi.org/10.82433/B09Z-4K37#creator-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#creator-2> ;
+    dck:date
+        <https://doi.org/10.82433/B09Z-4K37#date-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#date-2> ,
+        <https://doi.org/10.82433/B09Z-4K37#date-3> ;
+    dck:description
+        <https://doi.org/10.82433/B09Z-4K37#description-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#description-2> ,
+        <https://doi.org/10.82433/B09Z-4K37#description-3> ;
+    dck:format
+        "application/xml" ,
+        "text/plain" ;
+    dck:fundingReference <https://doi.org/10.82433/B09Z-4K37#fundingReference-1> ;
+    dck:geoLocation <https://doi.org/10.82433/B09Z-4K37#geoLocation-1> ;
+    dck:identifier <https://doi.org/10.82433/B09Z-4K37#identifier-1> ;
+    dck:language "en" ;
+    dck:publicationYear "2024" ;
+    dck:publisher <https://doi.org/10.82433/B09Z-4K37#publisher-1> ;
+    dck:relatedIdentifier
+        <https://doi.org/10.82433/B09Z-4K37#relatedIdentifier-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#relatedIdentifier-2> ,
+        <https://doi.org/10.82433/B09Z-4K37#relatedIdentifier-3> ;
+    dck:relatedItem <https://doi.org/10.82433/B09Z-4K37#relatedItem-1> ;
+    dck:resourceType <https://doi.org/10.82433/B09Z-4K37#resourceType-1> ;
+    dck:rights <https://doi.org/10.82433/B09Z-4K37#rights-1> ;
+    dck:size
+        "1 MB" ,
+        "90 pages" ;
+    dck:subject
+        <https://doi.org/10.82433/B09Z-4K37#subject-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#subject-2> ,
+        "Example Subject" ;
+    dck:title
+        <https://doi.org/10.82433/B09Z-4K37#title-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#title-2> ,
+        <https://doi.org/10.82433/B09Z-4K37#title-3> ,
+        <https://doi.org/10.82433/B09Z-4K37#title-4> ;
+    dck:version "1" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#alternateIdentifier-1>
+    dck:alternateIdentifierType "Local accession number" ;
+    dck:value "12345" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-1>
+    dck:affiliation <https://doi.org/10.82433/B09Z-4K37#contributor-1-affiliation-1> ;
+    dck:contributorName <https://doi.org/10.82433/B09Z-4K37#contributor-1-contributorName-1> ;
+    dck:contributorType "ContactPerson" ;
+    dck:familyName "ExampleFamilyName" ;
+    dck:givenName "ExampleGivenName" ;
+    dck:nameIdentifier <https://doi.org/10.82433/B09Z-4K37#contributor-1-nameIdentifier-1> ;
+    dck:position 1 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-1-affiliation-1>
+    dck:affiliationIdentifier "https://ror.org/04wxnsj81" ;
+    dck:affiliationIdentifierScheme "ROR" ;
+    dck:schemeURI "https://ror.org" ;
+    dck:value "ExampleAffiliation" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-1-contributorName-1>
+    dck:nameType "Personal" ;
+    dck:value "ExampleFamilyName, ExampleGivenName" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-1-nameIdentifier-1>
+    dck:nameIdentifierScheme "ORCID" ;
+    dck:schemeURI "https://orcid.org" ;
+    dck:value "https://orcid.org/0000-0001-5727-2427" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-2>
+    dck:contributorName <https://doi.org/10.82433/B09Z-4K37#contributor-2-contributorName-1> ;
+    dck:contributorType "Distributor" ;
+    dck:nameIdentifier <https://doi.org/10.82433/B09Z-4K37#contributor-2-nameIdentifier-1> ;
+    dck:position 2 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-2-contributorName-1>
+    dck:nameType "Organizational" ;
+    dck:value "ExampleOrganization" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-2-nameIdentifier-1>
+    dck:nameIdentifierScheme "ROR" ;
+    dck:schemeURI "https://ror.org" ;
+    dck:value "https://ror.org/03yrm5c26" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-3>
+    dck:contributorName <https://doi.org/10.82433/B09Z-4K37#contributor-3-contributorName-1> ;
+    dck:contributorType "RegistrationAuthority" ;
+    dck:position 3 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-3-contributorName-1>
+    dck:nameType "Organizational" ;
+    dck:value "International DOI Foundation" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-4>
+    dck:affiliation <https://doi.org/10.82433/B09Z-4K37#contributor-4-affiliation-1> ;
+    dck:contributorName "ExampleContributor" ;
+    dck:contributorType "ResearchGroup" ;
+    dck:position 4 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#contributor-4-affiliation-1>
+    dck:affiliationIdentifier "https://ror.org/03yrm5c26" ;
+    dck:affiliationIdentifierScheme "ROR" ;
+    dck:schemeURI "https://ror.org" ;
+    dck:value "ExampleOrganization" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#creator-1>
+    dck:affiliation <https://doi.org/10.82433/B09Z-4K37#creator-1-affiliation-1> ;
+    dck:creatorName <https://doi.org/10.82433/B09Z-4K37#creator-1-creatorName-1> ;
+    dck:familyName "ExampleFamilyName" ;
+    dck:givenName "ExampleGivenName" ;
+    dck:nameIdentifier <https://doi.org/10.82433/B09Z-4K37#creator-1-nameIdentifier-1> ;
+    dck:position 1 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#creator-1-affiliation-1>
+    dck:affiliationIdentifier "https://ror.org/04wxnsj81" ;
+    dck:affiliationIdentifierScheme "ROR" ;
+    dck:schemeURI "https://ror.org" ;
+    dck:value "ExampleAffiliation" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#creator-1-creatorName-1>
+    dck:nameType "Personal" ;
+    dck:value "ExampleFamilyName, ExampleGivenName" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#creator-1-nameIdentifier-1>
+    dck:nameIdentifierScheme "ORCID" ;
+    dck:schemeURI "https://orcid.org" ;
+    dck:value "https://orcid.org/0000-0001-5727-2427" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#creator-2>
+    dck:creatorName <https://doi.org/10.82433/B09Z-4K37#creator-2-creatorName-1> ;
+    dck:nameIdentifier <https://doi.org/10.82433/B09Z-4K37#creator-2-nameIdentifier-1> ;
+    dck:position 2 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#creator-2-creatorName-1>
+    dck:nameType "Organizational" ;
+    dck:value "ExampleOrganization"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#creator-2-nameIdentifier-1>
+    dck:nameIdentifierScheme "ROR" ;
+    dck:schemeURI "https://ror.org" ;
+    dck:value "https://ror.org/04wxnsj81" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#date-1>
+    dck:dateType "Accepted" ;
+    dck:value "2024-01-01" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#date-2>
+    dck:dateType "Collected" ;
+    dck:value "2024-01-01/2024-12-31" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#date-3>
+    dck:dateInformation "ExampleDateInformation" ;
+    dck:dateType "Other" ;
+    dck:value "2024-01-01" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#description-1>
+    dck:descriptionType "Abstract" ;
+    dck:value "Example Abstract"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#description-2>
+    dck:descriptionType "Methods" ;
+    dck:value "Example Methods"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#description-3>
+    dck:descriptionType "Other" ;
+    dck:value "Example Other"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#fundingReference-1>
+    dck:awardNumber <https://doi.org/10.82433/B09Z-4K37#fundingReference-1-awardNumber-1> ;
+    dck:awardTitle "Example AwardTitle" ;
+    dck:funderIdentifier <https://doi.org/10.82433/B09Z-4K37#fundingReference-1-funderIdentifier-1> ;
+    dck:funderName "Example Funder" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#fundingReference-1-awardNumber-1>
+    dck:awardURI "https://example.com/example-award-uri" ;
+    dck:value "12345" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#fundingReference-1-funderIdentifier-1>
+    dck:funderIdentifierType "Crossref Funder ID" ;
+    dck:value "https://doi.org/10.13039/501100000780" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1>
+    dck:geoLocationBox <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationBox-1> ;
+    dck:geoLocationPlace "Vancouver, British Columbia, Canada" ;
+    dck:geoLocationPoint <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPoint-1> ;
+    dck:geoLocationPolygon <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1> ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationBox-1>
+    dck:eastBoundLongitude "-123.02" ;
+    dck:northBoundLatitude "49.315" ;
+    dck:southBoundLatitude "49.195" ;
+    dck:westBoundLongitude "-123.27" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPoint-1>
+    dck:pointLatitude "49.2827" ;
+    dck:pointLongitude "-123.1207" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1>
+    dck:polygonPoint
+        <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-1> ,
+        <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-2> ,
+        <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-3> ,
+        <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-4> ,
+        <https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-5> ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-1>
+    dck:pointLatitude "41.991" ;
+    dck:pointLongitude "-71.032" ;
+    dck:position 1 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-2>
+    dck:pointLatitude "42.893" ;
+    dck:pointLongitude "-69.622" ;
+    dck:position 2 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-3>
+    dck:pointLatitude "41.991" ;
+    dck:pointLongitude "-68.211" ;
+    dck:position 3 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-4>
+    dck:pointLatitude "41.090" ;
+    dck:pointLongitude "-69.622" ;
+    dck:position 4 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#geoLocation-1-geoLocationPolygon-1-polygonPoint-5>
+    dck:pointLatitude "41.991" ;
+    dck:pointLongitude "-71.032" ;
+    dck:position 5 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#identifier-1>
+    dck:identifierType "DOI" ;
+    dck:value "10.82433/B09Z-4K37" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#publisher-1>
+    dck:publisherIdentifier "https://ror.org/04z8jg394" ;
+    dck:publisherIdentifierScheme "ROR" ;
+    dck:schemeURI "https://ror.org/" ;
+    dck:value "Example Publisher"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedIdentifier-1>
+    dck:relatedIdentifierType "ARK" ;
+    dck:relationType "IsCitedBy" ;
+    dck:resourceTypeGeneral "Audiovisual" ;
+    dck:value "ark:/13030/tqb3kh97gh8w" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedIdentifier-2>
+    dck:relatedIdentifierType "DOI" ;
+    dck:relationType "IsContinuedBy" ;
+    dck:resourceTypeGeneral "Collection" ;
+    dck:value "10.1016/j.epsl.2011.11.037" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedIdentifier-3>
+    dck:relatedIdentifierType "URL" ;
+    dck:relationType "References" ;
+    dck:resourceTypeGeneral "PeerReview" ;
+    dck:value "http://www.heatflow.und.edu/index2.html" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1>
+    dck:contributor <https://doi.org/10.82433/B09Z-4K37#relatedItem-1-contributor-1> ;
+    dck:creator <https://doi.org/10.82433/B09Z-4K37#relatedItem-1-creator-1> ;
+    dck:edition "Example RelatedItem Edition" ;
+    dck:firstPage "1" ;
+    dck:issue "2" ;
+    dck:lastPage "100" ;
+    dck:number <https://doi.org/10.82433/B09Z-4K37#relatedItem-1-number-1> ;
+    dck:publicationYear "1990" ;
+    dck:publisher "Example RelatedItem Publisher" ;
+    dck:relatedItemIdentifier <https://doi.org/10.82433/B09Z-4K37#relatedItem-1-relatedItemIdentifier-1> ;
+    dck:relatedItemType "Text" ;
+    dck:relationType "Cites" ;
+    dck:title
+        <https://doi.org/10.82433/B09Z-4K37#relatedItem-1-title-2> ,
+        "Example RelatedItem Title" ;
+    dck:volume "1" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1-contributor-1>
+    dck:contributorName <https://doi.org/10.82433/B09Z-4K37#relatedItem-1-contributor-1-contributorName-1> ;
+    dck:contributorType "Other" ;
+    dck:familyName "ExampleFamilyName" ;
+    dck:givenName "ExampleGivenName" ;
+    dck:position 1 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1-contributor-1-contributorName-1>
+    dck:nameType "Personal" ;
+    dck:value "ExampleFamilyName, ExampleGivenName" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1-creator-1>
+    dck:creatorName <https://doi.org/10.82433/B09Z-4K37#relatedItem-1-creator-1-creatorName-1> ;
+    dck:familyName "ExampleFamilyName" ;
+    dck:givenName "ExampleGivenName" ;
+    dck:position 1 ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1-creator-1-creatorName-1>
+    dck:nameType "Personal" ;
+    dck:value "ExampleFamilyName, ExampleGivenName" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1-number-1>
+    dck:numberType "Other" ;
+    dck:value "1" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1-relatedItemIdentifier-1>
+    dck:relatedItemIdentifierType "ISSN" ;
+    dck:value "1234-5678" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#relatedItem-1-title-2>
+    dck:titleType "TranslatedTitle" ;
+    dck:value "Example RelatedItem TranslatedTitle" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#resourceType-1>
+    dck:resourceTypeGeneral "Dataset" ;
+    dck:value "Example ResourceType" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#rights-1>
+    dck:rightsIdentifier "CC-BY-4.0" ;
+    dck:rightsIdentifierScheme "SPDX" ;
+    dck:rightsURI "https://creativecommons.org/licenses/by/4.0/" ;
+    dck:schemeURI "https://spdx.org/licenses/" ;
+    dck:value "Creative Commons Attribution 4.0 International"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#subject-1>
+    dck:schemeURI "http://www.oecd.org/science/inno" ;
+    dck:subjectScheme "Fields of Science and Technology (FOS)" ;
+    dck:value "FOS: Computer and information sciences" ;
+    dck:valueURI "http://www.oecd.org/science/inno/38235147.pdf" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#subject-2>
+    dck:classificationCode "461001" ;
+    dck:schemeURI "https://www.abs.gov.au/statistics/classifications/australian-and-new-zealand-standard-research-classification-anzsrc" ;
+    dck:subjectScheme "Australian and New Zealand Standard Research Classification (ANZSRC), 2020" ;
+    dck:value "Digital curation and preservation" ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#title-1>
+    dck:value "Example Title"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#title-2>
+    dck:titleType "Subtitle" ;
+    dck:value "Example Subtitle"@en ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#title-3>
+    dck:titleType "TranslatedTitle" ;
+    dck:value "Example TranslatedTitle"@fr ;
+.
+
+<https://doi.org/10.82433/B09Z-4K37#title-4>
+    dck:titleType "AlternativeTitle" ;
+    dck:value "Example AlternativeTitle"@en ;
+.
