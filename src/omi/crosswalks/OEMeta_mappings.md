@@ -13,7 +13,7 @@ bedeuten: kein direktes DataCite-Äquivalent vorhanden.
 | 2 | title | Bronze | | mandatory | dcat:Dataset / dct:title | Title |
 | 3 | description | Bronze | description | mandatory | dcat:Dataset / dcterms:description | Description (descriptionType: Abstract) |
 | 4 | id | Silver | identifier | optional | dcat:Dataset / dct:identifier | Identifier |
-| 5 | resources | | type | mandatory | dcat:Distribution | RelatedIdentifier / RelationType: HasPart |
+| 5 | resources | | type | mandatory | dcat:Dataset | RelatedIdentifier / RelationType: HasPart |
 | 6 | name (resource) | Iron | | mandatory | dcat:Distribution / dcat:accessURL | – |
 | 7 | topics | Bronze | coverage | mandatory | dcat:Distribution / dcat:accessURL | Subject |
 | 8 | title (resource) | Silver | title | recommended | dcat:Distribution / dcterms:title | Title (TitleType: AlternativeTitle) |
@@ -134,3 +134,11 @@ bedeuten: kein direktes DataCite-Äquivalent vorhanden.
 - Die Zuordnung `contributors.roles → contributorType` ist nur eine Annäherung: DataCite verwendet eine kontrollierte Vokabelliste für `contributorType` (z.B. ContactPerson, DataCollector, Editor, ProjectLeader, Researcher, etc.), die nicht 1:1 mit den OEMetadata-Rollenwerten übereinstimmt – hier braucht es ggf. eine eigene Cross-Mapping-Tabelle.
 - `sources` (BibTeX-orientiert) lässt sich nur über `RelatedIdentifier` bzw. eingebettete `Creator`/`Title`/`PublicationYear` der referenzierten Ressource abbilden, nicht 1:1 als flaches Feld.
 - Basis: DataCite Metadata Schema 4.4/4.5 (Stand: aktuelle Spezifikation unter https://schema.datacite.org/).
+
+
+## Anmerkungen zum OEM-Context
+- Root-Datensatz hat keinen Typ
+- Resources haben auch keinen Typ
+- resources ist eigentlich eine object property (Relation) wird aber im Context gemapped auf 
+- dcat:Dataset, sollte stattdessen dct:hasPart sein
+- resource wird gemapped auf dcat:Distribution, sollte dcat:Dataset sein (siehe dazu Doku DCAT3 bag of files)
