@@ -1,23 +1,23 @@
 @prefix sh:     <http://www.w3.org/ns/shacl#> .
 @prefix oeo:    <https://openenergyplatform.org/ontology/oeo/> .
 @prefix dcat:   <http://www.w3.org/ns/dcat#> .
-@prefix dct: <http://purl.org/dc/terms/>
+@prefix dct: <http://purl.org/dc/terms/> .
 @prefix owl:    <http://www.w3.org/2002/07/owl#> .
-@prefix adms: <http://www.w3.org/ns/adms#>
-@prefix csvw: <http://www.w3.org/ns/csvw#>
-@prefix dbo: <http://dbpedia.org/ontology/>
-@prefix foaf: <http://xmlns.com/foaf/0.1/>
-@prefix ns1: <http://purl.obolibrary.org/obo/>
-@prefix ns2: <https://terminology.tib.eu/ts/ontologies/>
-@prefix oeo: <https://openenergyplatform.org/ontology/oeo/>
-@prefix owl: <http://www.w3.org/2002/07/owl#>
-@prefix prov: <http://www.w3.org/ns/prov#>
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-@prefix sc: <http://schema.org/>
-@prefix spdx: <http://spdx.org/rdf/terms#>
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-@prefix ex: <http://example.com/>
+@prefix adms: <http://www.w3.org/ns/adms#> .
+@prefix csvw: <http://www.w3.org/ns/csvw#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ns1: <http://purl.obolibrary.org/obo/> .
+@prefix ns2: <https://terminology.tib.eu/ts/ontologies/> .
+@prefix oeo: <https://openenergyplatform.org/ontology/oeo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <http://schema.org/> .
+@prefix spdx: <http://spdx.org/rdf/terms#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix ex: <http://example.com/> .
 
 
 ex:TopElementToDatasetRule
@@ -26,7 +26,7 @@ ex:TopElementToDatasetRule
     sh:rule [
         a sh:SPARQLRule ;
         sh:construct """
-            PREFIX dcat:   <http://www.w3.org/ns/dcat#> .
+            PREFIX dcat:   <http://www.w3.org/ns/dcat#> 
             PREFIX dct: <http://purl.org/dc/terms/>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             CONSTRUCT {
@@ -51,7 +51,7 @@ ex:ResourceToSubDatasetRule
     sh:rule [
         a sh:SPARQLRule ;
         sh:construct """
-            PREFIX dcat:   <http://www.w3.org/ns/dcat#> .
+            PREFIX dcat:   <http://www.w3.org/ns/dcat#>
             PREFIX dct: <http://purl.org/dc/terms/>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             CONSTRUCT {
@@ -60,7 +60,7 @@ ex:ResourceToSubDatasetRule
                     dct:description ?description ;
                     dct:identifier $this ;
                     dcat:distribution ?fileid .
-                    ?fileid a dcat:Distribution .
+                ?fileid a dcat:Distribution .
             }
             WHERE {
                     dct:title ?title ;

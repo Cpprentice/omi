@@ -44,8 +44,8 @@ def test_xml_oem2dcat_transformation():
     out_path = Path(f"tests/test_data/output_{timestamp}.jsonld")    
     with open(out_path, 'w', encoding='utf-8') as out_stream:
         test = transform_metadata(
-            input_data_file_path=Path("tests/test_data/transformation/datacite-example-full-v4.xml"),
-            crosswalk_file_path=Path("tests/test_data/transformation/datacite_4_7_to_oemetadata_2_0_4.ttl"),
+            input_data_file_path=Path("tests/test_data/transformation/datacite-example-full-v4.xml").absolute(),
+            crosswalk_file_path=Path("src/omi/crosswalks/datacite_4_7_to_oemetadata_2_0_4.ttl").absolute(),
             output_stream=out_stream,
             output_format="json-ld"
             )
