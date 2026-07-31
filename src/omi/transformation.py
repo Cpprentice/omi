@@ -197,13 +197,13 @@ def perform_crosswalk(input_graph: Graph, crosswalk_file_path: Path) -> Graph:
     rules_graph = Graph()
     rules_graph.parse(str(crosswalk_file_path), format='turtle')
 
-    output_graph = shacl_rules(input_graph, shacl_graph=rules_graph, advanced=True, inplace=False)
+    output_graph = shacl_rules(input_graph, shacl_graph=rules_graph, advanced=True, inplace=False, debug=True)
 
     # shacl_rules() may return a Dataset (quads); keep only the new triples.
     # Staging namespaces differ from input namespaces by design, so rules
     # never need to re-assert an input triple.
     derived = Graph()
-    for triple in output_graph.triples((None, None, None)):
+    for triple in output_graph.default_graph.triples((None, None, None)):
         if triple not in input_graph:
             derived.add(triple)
 
@@ -279,7 +279,7 @@ if __name__ == '__main__':
     def debug_transform(input_file: str = 'tests/test_data/transformation/datacite-example-full-v4.xml',
                         crosswalk_file: str = 'tests/test_data/transformation/datacite_4_7_to_oemetadata_2_0_4.ttl',
                         output_format: str = 'turtle',
-                        output_file: str = None):
+                        output_file: str | None = None):
         """Execute a transformation and display debugging information.
 
         Parameters
