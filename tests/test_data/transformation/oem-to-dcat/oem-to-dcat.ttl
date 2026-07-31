@@ -1,0 +1,270 @@
+PREFIX csvw: <http://www.w3.org/ns/csvw#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dcatap: <http://data.europa.eu/r5r/>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX geo1: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+# Fix CPPrentice missing catalog
+<urn:oemetadata:catalog:open_energy_platform>
+    a dcat:Catalog ;
+    dcat:landingPage "https://openenergyplatform.org/" ;
+    dcterms:title "Open Energy Platform" ;
+    dcat:dataset <urn:oemetadata:dataset:ambient_temperature_middle> .
+# End Fix CPPrentice
+
+<urn:oemetadata:dataset:ambient_temperature_middle>
+    a dcat:Dataset ;
+    dcterms:contributor
+        <https://orcid.org/0000-0002-4269-3779> ,
+        <https://orcid.org/0000-0003-3633-1349> ,
+        <https://orcid.org/0009-0004-0638-4639> ,
+        <https://orcid.org/0009-0004-7229-2118> ,
+        <https://orcid.org/0009-0004-8449-3443> ,
+        <urn:oemetadata:agent:am%C3%A8lie-oberdorfer> ,
+        <urn:oemetadata:agent:rohith-krishnan-bala-krishnan> ,
+        <urn:oemetadata:agent:viktor-wesselak> ;
+    dcterms:creator
+        <https://orcid.org/0000-0002-4269-3779> ,
+        <https://orcid.org/0009-0004-7229-2118> ,
+        <https://orcid.org/0009-0004-8449-3443> ,
+        <urn:oemetadata:agent:am%C3%A8lie-oberdorfer> ,
+        <urn:oemetadata:agent:rohith-krishnan-bala-krishnan> ,
+        <urn:oemetadata:agent:viktor-wesselak> ;
+    dcterms:description "Ambient temperature profile for the four planning regions of Thuringia. Erfurt (middle), Nordhausen (north), Gera (east) and Hildburghausen (swest); The profiles are based on weather data for a typical year from Meteonorm version 7.3.4.21143. The data was collected in the ZO.RRO II project by Nordhausen University of Applied Science."@en ;
+    dcterms:identifier "ambient_temperature_middle" ;
+    dcterms:issued "2025-12-02"^^xsd:date ;
+    dcterms:language <http://publications.europa.eu/resource/authority/language/ENG> ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:publisher <https://openenergyplatform.org/> ;
+    dcterms:spatial <urn:oemetadata:spatial-extent:erfurt> ;
+    dcterms:subject <https://openenergyplatform.org/ontology/oeo/OEO_00010453> ;
+    dcterms:temporal <urn:oemetadata:temporal:ambient_temperature_middle> ;
+    dcterms:title "ambient temperature middle"@en ;
+    dcat:contactPoint
+        [
+            a vcard:Kind ;
+            vcard:fn "Hochschule Nordhausen - Institut für Regenerative Energietechnik" ;
+            vcard:hasEmail <mailto:ret@hs-nordhausen.de> ;
+        ] ;
+    dcat:distribution <urn:oemetadata:distribution:ambient_temperature_HSN_inRET> ;
+    dcat:keyword
+        "climate_neutrality"@en ,
+        "hsn_in_ret"@en ,
+        "oemof"@en ,
+        "thuringia"@en ,
+        "zo_rro_ii"@en ;
+    dcat:landingPage <https://zorro-thueringen.de/> ;
+    dcat:theme <https://openenergyplatform.org/ontology/oeo/OEO_00010453> ;
+    prov:wasGeneratedBy <https://zorro-thueringen.de/> ;
+.
+
+<https://orcid.org/0000-0003-3633-1349>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2025-09-01"^^xsd:date ;
+    dcterms:type "Other" ;
+    rdfs:comment "consulting on FAIR data publication" ;
+    org:memberOf "Thüringer Kompetenzzentrum Forschungsdatenmanagement, Technische Universität Ilmenau" ;
+    prov:hadRole "Other" ;
+    foaf:name "Kevin Lindt" ;
+.
+
+<https://orcid.org/0009-0004-0638-4639>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2025-09-01"^^xsd:date ;
+    dcterms:type "Other" ;
+    rdfs:comment "consulting on FAIR data publication" ;
+    org:memberOf "Thüringer Kompetenzzentrum Forschungsdatenmanagement, Ernst-Abbe-Hochschule Jena" ;
+    prov:hadRole "Other" ;
+    foaf:name "Stefan Kirsch" ;
+.
+
+<urn:oemetadata:distribution:ambient_temperature_HSN_inRET>
+    a dcat:Distribution ;
+    dcatap:availability <http://publications.europa.eu/resource/authority/planned-availability/AVAILABLE> ;
+    dcterms:description "Ambient temperature profile for the four planning regions of Thuringia. Erfurt (middle), Nordhausen (north), Gera (east) and Hildburghausen (swest); The profiles are based on weather data for a typical year from Meteonorm version 7.3.4.21143. The data was collected in the ZO.RRO II project by Nordhausen University of Applied Science."@en ;
+    dcterms:format <http://publications.europa.eu/resource/authority/file-type/CSV> ;
+    dcterms:identifier "ambient_temperature_HSN_inRET" ;
+    dcterms:issued "2025-12-02"^^xsd:date ;
+    dcterms:language <http://publications.europa.eu/resource/authority/language/ENG> ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:title "ambient_temperature_HSN_inRET"@en ;
+    csvw:tableSchema <urn:oemetadata:distribution:ambient_temperature_HSN_inRET:schema> ;
+    dcat:accessURL <https://openenergyplatform.org/dataedit/view/weatherdata/ambient_temperature_HSN_inRET> ;
+    dcat:mediaType <https://www.iana.org/assignments/media-types/text/csv> ;
+.
+
+<urn:oemetadata:distribution:ambient_temperature_HSN_inRET:column:Ta>
+    a csvw:Column ;
+    dcterms:description "Ambient temperature profile for the region."@en ;
+    dcterms:subject <https://openenergyplatform.org/ontology/oeo/OEO_00010453> ;
+    qudt:unit "°C" ;
+    csvw:datatype "float" ;
+    csvw:name "Ta" ;
+.
+
+<urn:oemetadata:distribution:ambient_temperature_HSN_inRET:column:id>
+    a csvw:Column ;
+    dcterms:description "Index column."@en ;
+    dcterms:subject <https://openenergyplatform.org/ontology/oeo/OEO_00030033> ;
+    csvw:datatype "integer" ;
+    csvw:name "id" ;
+.
+
+<urn:oemetadata:distribution:ambient_temperature_HSN_inRET:schema>
+    a csvw:Schema ;
+    csvw:column
+        <urn:oemetadata:distribution:ambient_temperature_HSN_inRET:column:Ta> ,
+        <urn:oemetadata:distribution:ambient_temperature_HSN_inRET:column:id> ;
+    csvw:primaryKey "id" ;
+.
+
+<urn:oemetadata:location:binderslebener-landstrasse-100-erfurt>
+    a dcterms:Location ;
+    geo1:lat "50.98" ;
+    geo1:long "10.97" ;
+    vcard:street-address "Binderslebener Landstraße 100, 99092 Erfurt" ;
+.
+
+<urn:oemetadata:spatial-extent:erfurt>
+    a dcterms:Location ;
+    rdfs:label "Erfurt" ;
+    dcterms:spatial <urn:oemetadata:location:binderslebener-landstrasse-100-erfurt> ;
+    dcat:bbox "POLYGON((0 0,0 0,0 0,0 0,0 0))"^^geosparql:wktLiteral ;
+.
+
+<urn:oemetadata:temporal:ambient_temperature_middle>
+    a dcterms:PeriodOfTime ;
+    dcterms:accrualPeriodicity <http://publications.europa.eu/resource/authority/frequency/HOURLY> ;
+    dcat:endDate "2025-01-01T00:00:00+00:00"^^xsd:dateTime ;
+    dcat:startDate "2025-01-01T00:00:00+00:00"^^xsd:dateTime ;
+.
+
+<https://creativecommons.org/licenses/by/4.0/>
+    a dcterms:LicenseDocument ;
+    dcterms:rights "© Hochschule Nordhausen - Institut für Regenerative Energietechnik, © ZO.RRO II Project Team" ;
+    dcterms:title "Creative Common Attribution 4.0 International" ;
+    rdfs:comment "You are free to use, share and modify; As long as you attribute, include copyright and state changes" ;
+    skos:prefLabel "CC-BY-4.0" ;
+.
+
+<https://openenergyplatform.org/>
+    a
+        foaf:Agent ,
+        foaf:Organization ;
+    foaf:homepage <https://openenergyplatform.org/> ;
+    foaf:logo <https://github.com/OpenEnergyPlatform/organisation/blob/production/logo/OpenEnergyFamily_Logo_OpenEnergyPlatform.svg> ;
+    foaf:name "Open Energy Platform" ;
+.
+
+<https://orcid.org/0000-0002-4269-3779>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2026-06-30"^^xsd:date ;
+    dcterms:type
+        "ContactPerson" ,
+        "DataCurator" ,
+        "Distributor" ,
+        "ProjectManager" ,
+        "ProjectMember" ;
+    org:memberOf "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology" ;
+    prov:hadRole
+        "ContactPerson" ,
+        "DataCurator" ,
+        "Distributor" ,
+        "ProjectManager" ,
+        "ProjectMember" ;
+    foaf:name "Christoph Schmidt" ;
+.
+
+<https://orcid.org/0009-0004-7229-2118>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2026-06-30"^^xsd:date ;
+    dcterms:type
+        "DataManager" ,
+        "ProjectMember" ;
+    org:memberOf "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology" ;
+    prov:hadRole
+        "DataManager" ,
+        "ProjectMember" ;
+    foaf:name "Andreas Lubojanski" ;
+.
+
+<https://orcid.org/0009-0004-8449-3443>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2026-06-30"^^xsd:date ;
+    dcterms:type "ProjectMember" ;
+    org:memberOf "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology" ;
+    prov:hadRole "ProjectMember" ;
+    foaf:name "Theresa Reinhardt" ;
+.
+
+<urn:oemetadata:agent:am%C3%A8lie-oberdorfer>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2024-12-31"^^xsd:date ;
+    dcterms:type
+        "DataCollector" ,
+        "ProjectMember" ;
+    org:memberOf "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology" ;
+    prov:hadRole
+        "DataCollector" ,
+        "ProjectMember" ;
+    foaf:name "Amèlie Oberdorfer" ;
+.
+
+<urn:oemetadata:agent:rohith-krishnan-bala-krishnan>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2026-06-30"^^xsd:date ;
+    dcterms:type
+        "DataCollector" ,
+        "ProjectMember" ;
+    org:memberOf "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology" ;
+    prov:hadRole
+        "DataCollector" ,
+        "ProjectMember" ;
+    foaf:name "Rohith Krishnan Bala Krishnan" ;
+.
+
+<urn:oemetadata:agent:viktor-wesselak>
+    a
+        prov:Agent ,
+        foaf:Agent ;
+    dcterms:date "2026-06-30"^^xsd:date ;
+    dcterms:type
+        "Distributor" ,
+        "ProjectLeader" ,
+        "ProjectMember" ;
+    org:memberOf "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology" ;
+    prov:hadRole
+        "Distributor" ,
+        "ProjectLeader" ,
+        "ProjectMember" ;
+    foaf:name "Viktor Wesselak" ;
+.
+
+<https://openenergyplatform.org/ontology/oeo/OEO_00010453>
+    a skos:Concept ;
+    skos:inScheme <https://openenergyplatform.org/ontology/oeo/> ;
+    skos:prefLabel "temperature"@en ;
+.

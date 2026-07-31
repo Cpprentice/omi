@@ -1,6 +1,10 @@
-from rdflib import Graph
+import json
+import pprint
+
+from rdflib import Dataset, Graph, URIRef
 from pyshacl import shacl_rules
-from omi.transformation import transform_metadata
+from omi.transformation import perform_crosswalk, transform_metadata
+import omi.crosswalks
 from pathlib import Path
 import datetime
 
@@ -39,7 +43,7 @@ def test_oem2dcat_transformation():
     output_graph.serialize(destination=str(output_graph_path.absolute()), format="longturtle")
 
 
-def test_xml_oem2dcat_transformation():
+def test_xml_oem2datacite_transformation():
     timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     out_path = Path(f"tests/test_data/output_{timestamp}.jsonld")    
     with open(out_path, 'w', encoding='utf-8') as out_stream:
@@ -49,4 +53,79 @@ def test_xml_oem2dcat_transformation():
             output_stream=out_stream,
             output_format="json-ld"
             )
+
+
+def _inject_local_oemetadata_context(descriptor: dict):
+    context_file = Path(__file__).parent / 'test_data' / 'transformation' / 'context.json'
+    context = json.loads(context_file.read_text(encoding='utf-8'))
+    descriptor['@context'] = context
+
+
+def _load_result_graph(conversion: str) -> Graph:
+    from_schema, to_schema = conversion.split('-to-')
+    result_path = Path(__file__).parent / 'test_data' / 'transformation' / conversion / f'{conversion}.ttl'
+    result_graph = Graph()
+    result_graph.parse(source=result_path, format='turtle')
+    return result_graph
+
+
+def test_oem_to_dcat_transformation():
+    input_dataset_file = Path(__file__).parent / 'test_data' / 'transformation' / 'oem-to-dcat' / 'oem-original.json'
+    descriptor = json.loads(input_dataset_file.read_text(encoding='utf-8'))
+    _inject_local_oemetadata_context(descriptor)
+
+    input_dataset = Dataset()
+    named_graph_uri = URIRef("https://example.com/ResultGraph")
+    input_graph = input_dataset.graph(named_graph_uri)
+    input_graph.parse(data=descriptor, format='json-ld')
+
+    input_graph.serialize(destination=input_dataset_file.with_name('oem-original.ttl'), format='longturtle')
+
+    test_data = list(input_graph.query("""
+    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+    PREFIX dcterms: <http://purl.org/dc/terms/>
+    SELECT ?parent ?this ?title ?description ?rel
+    WHERE {
+        ?parent dcat:dataset $this .
+        $this dcterms:title ?title ;
+            dcterms:description ?description .
+        BIND(BNODE() AS ?rel) .
+    }
+"""))
+
+    test_data2 = list(input_graph.query("""
+    PREFIX oeo: <https://openenergyplatform.org/ontology/oeo/>
+    PREFIX dcterms: <http://purl.org/dc/terms/>
+
+    SELECT ?creator ?parent $this
+    WHERE {
+        ?parent dcterms:contributor $this .
+        $this oeo:RO_0000087 ?role .
+        FILTER(?role = "DataCollector")
+        BIND($this AS ?creator)
+    }
+"""))
+
+
+    result_graph = perform_crosswalk(input_dataset, omi.crosswalks.get_path('oemetadata_2-0-4_to_dcat_3'))
+    # result_graph = shacl_rules(
+    #     input_dataset,
+    #     shacl_graph=omi.crosswalks.get_graph('oemetadata_2-0-4_to_dcat_3'),
+    #     advanced=True,
+    #     inplace=False,
+    #     debug=True,
+    #     # target_graph_identifier=named_graph_uri
+    # )
+
+    # result_graph.bind('dcat1', 'http://www.w3.org/ns/dcat#')
+    # result_graph.bind('dcterms1', 'http://purl.org/dc/terms/')
+
+    result_graph.serialize(destination=input_dataset_file.with_name('oem-to-dcat-transformed.ttl'), format='longturtle')
+    expected_graph = _load_result_graph('oem-to-dcat')
+    diff = expected_graph - result_graph
+    _ = 42
+
+
+if __name__ == '__main__':
+    test_oem_to_dcat_transformation()
 

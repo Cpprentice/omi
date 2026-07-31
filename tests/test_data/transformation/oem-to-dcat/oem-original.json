@@ -1,0 +1,249 @@
+{
+    "id": "ambient_temperature_middle",
+    "name": "ambient_temperature_middle",
+    "title": "ambient temperature middle",
+    "resources": [
+        {
+            "name": "ambient_temperature_HSN_inRET",
+            "path": "",
+            "type": "table",
+            "title": "ambient_temperature_HSN_inRET",
+            "format": "csv",
+            "review": {
+                "path": "",
+                "badge": ""
+            },
+            "schema": {
+                "fields": [
+                    {
+                        "name": "id",
+                        "type": "integer",
+                        "isAbout": [
+                            {
+                                "@id": "https://openenergyplatform.org/ontology/oeo/OEO_00030033",
+                                "name": "index"
+                            }
+                        ],
+                        "nullable": false,
+                        "description": "Index column.",
+                        "valueReference": []
+                    },
+                    {
+                        "name": "Ta",
+                        "type": "float",
+                        "unit": "\u00b0C",
+                        "isAbout": [
+                            {
+                                "@id": "https://openenergyplatform.org/ontology/oeo/OEO_00010453",
+                                "name": "temperature"
+                            }
+                        ],
+                        "nullable": true,
+                        "description": "Ambient temperature profile for the region.",
+                        "valueReference": []
+                    }
+                ],
+                "primaryKey": [
+                    "id"
+                ],
+                "foreignKeys": []
+            },
+            "topics": [
+                "weatherdata"
+            ],
+            "context": {
+                "title": "ZO.RRO II - Zero Carbon Cross Energy System",
+                "contact": "Hochschule Nordhausen - Institut f\u00fcr Regenerative Energietechnik; ret@hs-nordhausen.de",
+                "grantNo": "",
+                "homepage": "https://zorro-thueringen.de/",
+                "publisher": "Open Energy Platform",
+                "sourceCode": "https://github.com/in-RET/ZO.RRO2",
+                "documentation": "ToDo",
+                "fundingAgency": "Th\u00fcringer Ministerium f\u00fcr Umwelt, Energie, Naturschutz und Forsten",
+                "publisherLogo": "https://github.com/OpenEnergyPlatform/organisation/blob/production/logo/OpenEnergyFamily_Logo_OpenEnergyPlatform.svg",
+                "fundingAgencyLogo": "https://github.com/in-RET/ZO.RRO2/blob/main/TH_UENF_4c.svg"
+            },
+            "dialect": {
+                "delimiter": ";",
+                "decimalSeparator": ","
+            },
+            "sources": [],
+            "spatial": {
+                "extent": {
+                    "@id": null,
+                    "crs": "EPSG:4326",
+                    "name": "Erfurt",
+                    "boundingBox": [
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "resolutionUnit": "m",
+                    "resolutionValue": "1"
+                },
+                "location": {
+                    "@id": null,
+                    "address": "Binderslebener Landstra\u00dfe 100, 99092 Erfurt",
+                    "latitude": "50.98",
+                    "longitude": "10.97"
+                }
+            },
+            "subject": [
+                {
+                    "id": "https://openenergyplatform.org/ontology/oeo/OEO_00010453",
+                    "name": "temperature"
+                }
+            ],
+            "encoding": "utf8",
+            "keywords": [
+                "oemof",
+                "hsn_in_ret",
+                "zo_rro_ii",
+                "climate_neutrality",
+                "thuringia"
+            ],
+            "licenses": [
+                {
+                    "name": "CC-BY-4.0",
+                    "path": "https://creativecommons.org/licenses/by/4.0/",
+                    "title": "Creative Common Attribution 4.0 International",
+                    "attribution": "\u00a9 Hochschule Nordhausen - Institut f\u00fcr Regenerative Energietechnik, \u00a9 ZO.RRO II Project Team",
+                    "instruction": "You are free to use, share and modify; As long as you attribute, include copyright and state changes",
+                    "copyrightStatement": ""
+                }
+            ],
+            "temporal": {
+                "timeseries": [
+                    {
+                        "end": "2025-01-01T00:00:00+00:00",
+                        "start": "2025-01-01T00:00:00+00:00",
+                        "alignment": "left",
+                        "resolutionUnit": "h",
+                        "aggregationType": "current",
+                        "resolutionValue": "1"
+                    }
+                ],
+                "referenceDate": null
+            },
+            "languages": [
+                "en-GB"
+            ],
+            "description": "Ambient temperature profile for the four planning regions of Thuringia. Erfurt (middle), Nordhausen (north), Gera (east) and Hildburghausen (swest); The profiles are based on weather data for a typical year from Meteonorm version 7.3.4.21143. The data was collected in the ZO.RRO II project by Nordhausen University of Applied Science.",
+            "contributors": [
+                {
+                    "date": "2024-12-31",
+                    "path": null,
+                    "roles": [
+                        "DataCollector",
+                        "ProjectMember"
+                    ],
+                    "title": "Am\u00e8lie Oberdorfer",
+                    "object": "data and metadata",
+                    "comment": null,
+                    "organization": "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology"
+                },
+                {
+                    "date": "2026-06-30",
+                    "path": "https://orcid.org/0009-0004-7229-2118",
+                    "roles": [
+                        "DataManager",
+                        "ProjectMember"
+                    ],
+                    "title": "Andreas Lubojanski",
+                    "object": "data and metadata",
+                    "comment": null,
+                    "organization": "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology"
+                },
+                {
+                    "date": "2026-06-30",
+                    "path": "https://orcid.org/0000-0002-4269-3779",
+                    "roles": [
+                        "ContactPerson",
+                        "DataCurator",
+                        "Distributor",
+                        "ProjectManager",
+                        "ProjectMember"
+                    ],
+                    "title": "Christoph Schmidt",
+                    "object": "data and metadata",
+                    "comment": null,
+                    "organization": "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology"
+                },
+                {
+                    "date": "2026-06-30",
+                    "path": null,
+                    "roles": [
+                        "DataCollector",
+                        "ProjectMember"
+                    ],
+                    "title": "Rohith Krishnan Bala Krishnan",
+                    "object": "data and metadata",
+                    "comment": null,
+                    "organization": "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology"
+                },
+                {
+                    "date": "2026-06-30",
+                    "path": "https://orcid.org/0009-0004-8449-3443",
+                    "roles": [
+                        "ProjectMember"
+                    ],
+                    "title": "Theresa Reinhardt",
+                    "object": "data and metadata",
+                    "comment": null,
+                    "organization": "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology"
+                },
+                {
+                    "date": "2026-06-30",
+                    "path": null,
+                    "roles": [
+                        "Distributor",
+                        "ProjectLeader",
+                        "ProjectMember"
+                    ],
+                    "title": "Viktor Wesselak",
+                    "object": "data and metadata",
+                    "comment": null,
+                    "organization": "University of Applied Sciences Nordhausen - Institute for Renewable Energy Technology"
+                },
+                {
+                    "date": "2025-09-01",
+                    "path": "https://orcid.org/0009-0004-0638-4639",
+                    "roles": [
+                        "Other"
+                    ],
+                    "title": "Stefan Kirsch",
+                    "object": "metadata",
+                    "comment": "consulting on FAIR data publication",
+                    "organization": "Th\u00fcringer Kompetenzzentrum Forschungsdatenmanagement, Ernst-Abbe-Hochschule Jena"
+                },
+                {
+                    "date": "2025-09-01",
+                    "path": "https://orcid.org/0000-0003-3633-1349",
+                    "roles": [
+                        "Other"
+                    ],
+                    "title": "Kevin Lindt",
+                    "object": "metadata",
+                    "comment": "consulting on FAIR data publication",
+                    "organization": "Th\u00fcringer Kompetenzzentrum Forschungsdatenmanagement, Technische Universit\u00e4t Ilmenau"
+                }
+            ],
+            "embargoPeriod": {
+                "end": null,
+                "start": null,
+                "isActive": false
+            },
+            "publicationDate": "2025-12-02"
+        }
+    ],
+    "description": "Ambient temperature profile for the four planning regions of Thuringia. Erfurt (middle), Nordhausen (north), Gera (east) and Hildburghausen (swest); The profiles are based on weather data for a typical year from Meteonorm version 7.3.4.21143. The data was collected in the ZO.RRO II project by Nordhausen University of Applied Science.",
+    "metaMetadata": {
+        "metadataLicense": {
+            "name": "CC0-1.0",
+            "path": "https://creativecommons.org/publicdomain/zero/1.0",
+            "title": "Creative Commons Zero v1.0 Universal"
+        },
+        "metadataVersion": "OEMetadata-2.0.4"
+    }
+}
