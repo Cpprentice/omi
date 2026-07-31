@@ -1,7 +1,7 @@
 @prefix sh:     <http://www.w3.org/ns/shacl#> .
 @prefix oeo:    <https://openenergyplatform.org/ontology/oeo/> .
 @prefix dcat:   <http://www.w3.org/ns/dcat#> .
-@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl:    <http://www.w3.org/2002/07/owl#> .
 @prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix csvw: <http://www.w3.org/ns/csvw#> .
@@ -20,51 +20,114 @@
 @prefix ex: <http://example.com/> .
 
 
-ex:TopElementToDatasetRule
+ex:TopElementToCatalogAndPrimaryDatasetRule
     a sh:NodeShape ;
-    sh:targetSubjectsOf owl:versionInfo ;
+    sh:targetSubjectsOf dcterms:conformsTo ;
     sh:rule [
         a sh:SPARQLRule ;
         sh:construct """
             PREFIX dcat:   <http://www.w3.org/ns/dcat#> 
-            PREFIX dct: <http://purl.org/dc/terms/>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
             CONSTRUCT {
+                <urn:oemetadata:catalog:open_energy_platform>
+                    a dcat:Catalog ;
+                    dcat:landingPage <https://openenergyplatform.org/> ;
+                    dcterms:title "Open Energy Platform" ;
+                    dcterms:description "A community platform to share energy data sets and home of the Open Energy Ontology and Open Energy Metadata" ;
+                    dcterms:publisher <https://ror.org/03xvdbr49> ;
+                    dcat:dataset $this .
+                <https://ror.org/03xvdbr49> a dcterms:Agent .
                 $this a dcat:Dataset ;
-                    dct:title ?title ;
-                    dct:description ?description ;
-                    dct:identifier $this ;
-                    dct:hasPart ?resource .
+                    dcterms:title ?title ;
+                    dcterms:description ?description ;
+                    dcterms:identifier $this . #;
+                    # dcterms:hasPart ?resource .
             }
             WHERE {
-                $this owl:versionInfo ?_ ;
-                    dct:title ?title ;
-                    dct:description ?description ;
-                    dcat:Dataset ?resource .  #statt oem:resources
+                $this dcterms:conformsTo ?_ ;
+                    dcterms:title ?title ;
+                    dcterms:description ?description ;
+                    dcat:dataset ?resource .  #statt oem:resources
             }
         """ ;
     ] .
 
 ex:ResourceToSubDatasetRule
     a sh:NodeShape ;
-    sh:targetClass dcat:Distribution ;
+    sh:targetObjectsOf dcat:dataset ;
     sh:rule [
         a sh:SPARQLRule ;
         sh:construct """
             PREFIX dcat:   <http://www.w3.org/ns/dcat#>
-            PREFIX dct: <http://purl.org/dc/terms/>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
             PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX csvw: <http://www.w3.org/ns/csvw#>
             CONSTRUCT {
                 $this a dcat:Dataset ;
-                    dct:title ?title ;
-                    dct:description ?description ;
-                    dct:identifier $this ;
-                    dcat:distribution ?fileid .
-                ?fileid a dcat:Distribution .
+                    dcterms:title ?title ;
+                    dcterms:description ?description ;
+                    dcterms:identifier $this ;
+                    dcat:distribution ?distributionCsv ;
+                    dcat:hasQualifiedRelation ?rel .
+                ?rel a dcat:Relationship ;
+                    dcat:hadRole <https://www.iana.org/assignments/link-relations#collection> ;
+                    dcterms:relation ?parent .
+                ?distributionCsvIri a dcat:Distribution ;
+                    dcat:accessUrl ?distributionCsv ;
+                    dcat:mediaType <http://www.iana.org/assignments/media-types/text/csv> .
+                ?distributionDatapackageIri a dcat:Distribution ;
+                    dcat:accessUrl ?distributionDatapackage ;
+                    dcat:mediaType <http://www.iana.org/assignments/media-types/text/csv> ;
+                    dcat:packageFormat <http://www.iana.org/assignments/media-types/application/zip> .
             }
             WHERE {
-                    dct:title ?title ;
-                    dct:description ?description ;
+                ?parent dcat:dataset $this ;
+                    dcterms:conformsTo ?_ .
+                $this dcterms:title ?title ;
+                    dcterms:description ?description .
+                BIND(BNODE() AS ?rel) .
+                BIND(CONCAT(STR(?parent), "/rows/?form=csv") AS ?distributionCsv) .
+                BIND(IRI(?distributionCsv) AS ?distributionCsvIri) .
+                BIND(CONCAT(STR(?parent), "/rows/?form=datapackage") AS ?distributionDatapackage) .
+                BIND(IRI(?distributionDatapackage) AS ?distributionDatapackageIri) .
+            }
+        """ ;
+    ] .
+
+
+ex:ContributorToAuthor
+    a sh:NodeShape ;
+    sh:targetObjectsOf dcterms:contributor ;
+    sh:rule [
+        a sh:SPARQLRule ;
+        sh:construct """
+            PREFIX dcat:   <http://www.w3.org/ns/dcat#>
+            PREFIX dcterms: <http://purl.org/dc/terms/>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX csvw: <http://www.w3.org/ns/csvw#>
+            PREFIX schema: <http://schema.org/>
+            PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+            PREFIX oeo: <https://openenergyplatform.org/ontology/oeo/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            CONSTRUCT {
+                ?parent dcterms:creator ?creator .
+                $this a foaf:Agent ;
+                    dcterms:title ?title ;
+                    dcterms:identifier ?id ;
+                    schema:memberOf ?org .
+            }
+            WHERE {
+                ?parent dcterms:contributor $this .
+                $this oeo:RO_0000087 ?role .
+                OPTIONAL { $this dcterms:identifier ?id . }
+                OPTIONAL { $this dcterms:modified ?modified . }
+                OPTIONAL { $this dcterms:title ?title . }
+                OPTIONAL { $this dcterms:type ?type . }
+                OPTIONAL { $this schema:memberOf ?org . }
+                OPTIONAL { $this rdfs:comment ?comment . }
+                FILTER (?role = "DataCollector")
+                BIND($this AS ?creator)
             }
         """ ;
     ] .
