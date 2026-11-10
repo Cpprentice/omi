@@ -23,6 +23,7 @@ flowchart LR
     E --> E1[Flattening / Unnesting]
     E --> E2[Nesting / Aggregation]
     E --> E3[Reification / Association Mapping]
+    E --> E4[Default Injection /<br/>Mandatory Attribute Completion]
 ```
 
 ---
@@ -75,6 +76,7 @@ These handle structural mismatches where a flat property in one schema becomes a
 | **Flattening (Unnesting)** | A nested structure or blank node chain in $A$ is collapsed into direct properties on the main resource in $B$. | `ex:hasDimensions [ ex:width ?w ; ex:height ?h ]` $\rightarrow$ `schema:width ?w`, `schema:height ?h` |
 | **Nesting / Aggregation** | Flat properties in $A$ are grouped into a structured blank node or intermediate entity in $B$. | `schema:latitude` + `schema:longitude` $\rightarrow$ `ex:hasLocation [ geo:lat ... ; geo:long ... ]` |
 | **Reification / Association Mapping** | A direct property edge in $A$ is transformed into an intermediate reified statement node in $B$ to support qualified metadata. | `ex:dataset ex:hasQualityMetric ?val` $\rightarrow$ `ex:dataset ex:hasQuality [ dqv:metric ... ; dqv:value ?val ]` |
+| **Default Injection / Mandatory Attribute Completion** | When an object of target class $C_2$ is instantiated and $C_2$'s schema declares attributes as mandatory (minCount ≥ 1) that are absent in the source, the transformation must inject schema-compliant defaults — minted URIs, fixed literals, fallback datatypes, or derived values — so the generated object remains valid in $B$. | Creating a `dcat:Distribution` requires `dcat:accessURL` and `dcat:mediaType`; if the source resource lacks them, mint `<parent>/rows/?form=csv` and default to `text/csv`. |
 
 ---
 
@@ -148,6 +150,7 @@ Here is the extended **OEMetadata Crosswalk** table enhanced with a new **Transf
 4. **Coordinates & Extents (`latitude`, `longitude`):** Mapped to **Flattening / Unnesting** or structural projections between flat key-value pairs and geometric point/box nodes.
 5. **Resource Containers (`resources`):** Mapped to a **sub-dataset design** (see below): each OEMetadata resource becomes a sub-`dcat:Dataset` under the `dcat:Catalog`, linked via a qualified `dcat:Relationship`, with distributions minted from the parent dataset URI.
 6. **Value-Driven Selections (`roles`, embargo/timeseries `start`/`end`):** The input literal (e.g. a role or date-type label) serves as a lookup key that selects the target predicate or class — an application of **Literal-to-Node Promotion**. Rows 18–19 and 48–49 follow this pattern: the date semantics (`Withheld`, `Available`, `Collected`) determine which DataCite date predicate is instantiated.
+7. **Mandatory Attribute Completion (`resources` distributions, `dcat:Catalog`):** Instantiating target classes with mandatory attributes forces **Default Injection**: the ruleset synthesises distribution access URLs (`/rows/?form=csv`, `/rows/?form=datapackage`), fixes `dcat:mediaType`/`dcat:packageFormat`, and populates the `dcat:Catalog` with static title, description, and publisher information not present in the source payload.
 
 ### Resource Handling: Sub-Dataset Design (as implemented)
 
