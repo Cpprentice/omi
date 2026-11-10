@@ -88,7 +88,7 @@ Here is the extended **OEMetadata Crosswalk** table enhanced with a new **Transf
 | 2 | title | `dcat:Dataset / dct:title` | Title | **Direct Property Mapping** |
 | 3 | description | `dcat:Dataset / dcterms:description` | Description (Abstract) | **Direct Property Mapping** |
 | 4 | id | `dcat:Dataset / dct:identifier` | Identifier | **Direct Property Mapping** |
-| 5 | resources | `dcat:Dataset` | RelatedIdentifier (HasPart) | **Nesting / Aggregation** |
+| 5 | resources | `dcat:Catalog / dcat:dataset` → sub-`dcat:Dataset` (qualified relation via `dcat:Relationship` / `dcat:hadRole collection`; `dcterms:hasPart` kept as documented alternative) | RelatedIdentifier (HasPart) | **Class Specialisation + Reification / Association** |
 | 6 | name (resource) | `dcat:Distribution / dcat:accessURL` | – | **Direct Property Mapping** |
 | 7 | topics | `dcat:Distribution / dcat:accessURL` | Subject | **Direct Property Mapping** |
 | 8 | title (resource) | `dcat:Distribution / dcterms:title` | Title (AlternativeTitle) | **Direct Property Mapping** |
@@ -144,6 +144,28 @@ Here is the extended **OEMetadata Crosswalk** table enhanced with a new **Transf
 2. **Leaf Properties (`name`, `title`, `publisher`):** Mapped to **Direct Property Mapping** (1-to-1 predicate substitutions).
 3. **Datatypes & Formats (`publicationDate`, `start`, `end`):** Mapped to **Literal Transformation / Casting** due to string-to-XSD date parsing requirements.
 4. **Coordinates & Extents (`latitude`, `longitude`):** Mapped to **Flattening / Unnesting** or structural projections between flat key-value pairs and geometric point/box nodes.
+5. **Resource Containers (`resources`):** Mapped to a **sub-dataset design** (see below): each OEMetadata resource becomes a sub-`dcat:Dataset` under the `dcat:Catalog`, linked via a qualified `dcat:Relationship`, with distributions minted from the parent dataset URI.
+
+### Resource Handling: Sub-Dataset Design (as implemented)
+
+The reference implementation (`src/omi/crosswalks/oemetadata_2-0-4_to_dcat_3.ttl`) refines the crosswalk rows 5–9 as follows:
+
+* **Top-level datapackage → Catalog + primary Dataset.** A node with `dcterms:conformsTo` triggers `TopElementToCatalogAndPrimaryDatasetRule`, which mints a fixed `dcat:Catalog` (`urn:oemetadata:catalog:open_energy_platform`) with `dcat:dataset $this` and models the datapackage itself as the primary `dcat:Dataset`.
+* **Each resource becomes a sub-`dcat:Dataset`, not a `dcat:Distribution`.** `ResourceToSubDatasetRule` (`sh:targetObjectsOf dcat:dataset`) re-types each resource as a `dcat:Dataset` and links it from its parent via `dcat:dataset`. `dcterms:hasPart` was evaluated and deliberately **commented out** in favour of this design.
+* **The parent–child link is qualified.** The sub-dataset carries a `dcat:Relationship` (blank node) with `dcat:hadRole <...link-relations#collection>` and `dcterms:relation` pointing back to the parent dataset — an application of the **Reification / Association** pattern to record the collection membership explicitly.
+* **Distributions are synthesised, not derived from resource `path`.** Two access URLs are minted from the parent dataset URI: `<parent>/rows/?form=csv` (`dcat:mediaType text/csv`) and `<parent>/rows/?form=datapackage` (`dcat:mediaType text/csv` + `dcat:packageFormat application/zip`).
+* **Not yet consumed:** resource-level keys `name`, `topics`, `title`, `path` (rows 6–9 above) are currently dropped by the ruleset; their table entries describe the planned sub-dataset/distribution-level mapping.
+
+```mermaid
+flowchart TD
+    C["dcat:Catalog\nOpen Energy Platform"] --> D["dcat:Dataset\nOEMetadata datapackage"]
+    D -->|dcat:dataset| R["dcat:Dataset\nOEMetadata resource (sub-dataset)"]
+    R -->|dcat:hasQualifiedRelation| REL["dcat:Relationship\ndcat:hadRole collection\ndcterms:relation → parent dataset"]
+    R -->|dcat:distribution| D1["dcat:Distribution\n…/rows/?form=csv\nmediaType text/csv"]
+    R -->|dcat:distribution| D2["dcat:Distribution\n…/rows/?form=datapackage\npackageFormat application/zip"]
+```
+
+> **Design note:** this diverges from the original `resources → dcat:Distribution / dcterms:hasPart` row. The sub-dataset design was chosen so that resources keep dataset-level properties (title, description, identifier) and can themselves carry distributions, while the qualified relationship preserves the parent–child semantics that a bare `dcterms:hasPart` edge cannot express.
 
 ## Implementation
 
