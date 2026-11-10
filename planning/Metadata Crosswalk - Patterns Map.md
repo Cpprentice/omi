@@ -16,6 +16,7 @@ flowchart LR
     C --> C1[Direct Property Mapping]
     C --> C2[Literal Transformation / Casting]
     C --> C3[Inverse Property Mapping]
+    C --> C4[Literal-to-Node Promotion<br/>Value-Driven Selection]
     D --> D1[Type-Conditional Property Mapping]
     D --> D2[Value-Conditional Mapping]
     D --> D3[Existence-Conditional Mapping]
@@ -44,11 +45,12 @@ These patterns dictate how instance types and class hierarchies are translated b
 
 These govern how properties and their literal or object values are transferred.
 
-| Pattern Name | Abstract Definition | Example (Vocabulary A $\rightarrow$ B) |
-| --- | --- | --- |
-| **Direct Property Mapping** | A direct predicate substitution where property $P_1$ maps to $P_2$ with identical value domains. | `dcat:keyword` $\rightarrow$ `schema:keywords` |
+| Pattern Name                         | Abstract Definition | Example (Vocabulary A $\rightarrow$ B) |
+|--------------------------------------| --- | --- |
+| **Direct Property Mapping**          | A direct predicate substitution where property $P_1$ maps to $P_2$ with identical value domains. | `dcat:keyword` $\rightarrow$ `schema:keywords` |
 | **Literal Transformation / Casting** | The property is mapped, but the value undergoes datatype conversion, formatting, or parsing (e.g., string to URI, date parsing, unit conversion). | `ex:createdDate` (String) $\rightarrow$ `dcterms:created` (XSD DateTime) |
 | **Inverse Property Mapping** | The direction of the relation is inverted between subject and object. | `ex:hasAuthor` $\rightarrow$ `dcterms:creator` (with reversed subject/object bindings) |
+| **Literal-to-Node Promotion (Value-Driven Selection)** | A literal in the input (typically the object of the source triple) is used as a lookup key to *select* the target subject, predicate, or object — e.g. choosing the target class — instead of (or in addition to) being carried over as a value. The literal is promoted into a node position in the target graph. | `ex:dateType "Collected"` selects predicate `dcterms:created`; `ex:type "service"` instantiates target class `dcat:DataService` in the subject position. |
 
 ---
 
@@ -145,6 +147,7 @@ Here is the extended **OEMetadata Crosswalk** table enhanced with a new **Transf
 3. **Datatypes & Formats (`publicationDate`, `start`, `end`):** Mapped to **Literal Transformation / Casting** due to string-to-XSD date parsing requirements.
 4. **Coordinates & Extents (`latitude`, `longitude`):** Mapped to **Flattening / Unnesting** or structural projections between flat key-value pairs and geometric point/box nodes.
 5. **Resource Containers (`resources`):** Mapped to a **sub-dataset design** (see below): each OEMetadata resource becomes a sub-`dcat:Dataset` under the `dcat:Catalog`, linked via a qualified `dcat:Relationship`, with distributions minted from the parent dataset URI.
+6. **Value-Driven Selections (`roles`, embargo/timeseries `start`/`end`):** The input literal (e.g. a role or date-type label) serves as a lookup key that selects the target predicate or class — an application of **Literal-to-Node Promotion**. Rows 18–19 and 48–49 follow this pattern: the date semantics (`Withheld`, `Available`, `Collected`) determine which DataCite date predicate is instantiated.
 
 ### Resource Handling: Sub-Dataset Design (as implemented)
 
@@ -210,11 +213,11 @@ ex:SpatialContainerMappingShape
                 ?this ex:spatial ?spatialContainer .
                 ?spatialContainer ex:latitude ?lat ;
                                   ex:longitude ?lon .
-                
+
                 # Generate deterministic URIs for intermediate blank nodes or resources
                 BIND(IRI(CONCAT(STR(?this), "/location")) AS ?locNode)
                 BIND(IRI(CONCAT(STR(?this), "/geometry")) AS ?geomNode)
-                
+
                 # Cast literals to xsd:decimal to satisfy geometric property datatypes
                 BIND(STRDATATYPE(STR(?lat), xsd:decimal) AS ?latLit)
                 BIND(STRDATATYPE(STR(?lon), xsd:decimal) AS ?lonLit)
@@ -250,10 +253,10 @@ ex:SourceReificationMappingShape
             WHERE {
                 ?this ex:sources ?sourceContainer .
                 ?sourceContainer ex:title ?sourceTitle .
-                
+
                 OPTIONAL { ?sourceContainer ex:author ?sourceAuthor . }
                 OPTIONAL { ?sourceContainer ex:publicationYear ?sourceYear . }
-                
+
                 # Construct a clean URI using encoded source titles
                 BIND(IRI(CONCAT(STR(?this), "/source/", ENCODE_FOR_URI(STR(?sourceTitle)))) AS ?sourceNode)
             }
