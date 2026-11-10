@@ -3,20 +3,7 @@
 @prefix dcat:   <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix owl:    <http://www.w3.org/2002/07/owl#> .
-@prefix adms: <http://www.w3.org/ns/adms#> .
 @prefix csvw: <http://www.w3.org/ns/csvw#> .
-@prefix dbo: <http://dbpedia.org/ontology/> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix ns1: <http://purl.obolibrary.org/obo/> .
-@prefix ns2: <https://terminology.tib.eu/ts/ontologies/> .
-@prefix oeo: <https://openenergyplatform.org/ontology/oeo/> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sc: <http://schema.org/> .
-@prefix spdx: <http://spdx.org/rdf/terms#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix ex: <http://example.com/> .
 
 
@@ -74,10 +61,10 @@ ex:ResourceToSubDatasetRule
                     dcat:hadRole <https://www.iana.org/assignments/link-relations#collection> ;
                     dcterms:relation ?parent .
                 ?distributionCsvIri a dcat:Distribution ;
-                    dcat:accessUrl ?distributionCsv ;
+                    dcat:accessURL ?distributionCsv ;
                     dcat:mediaType <http://www.iana.org/assignments/media-types/text/csv> .
                 ?distributionDatapackageIri a dcat:Distribution ;
-                    dcat:accessUrl ?distributionDatapackage ;
+                    dcat:accessURL ?distributionDatapackage ;
                     dcat:mediaType <http://www.iana.org/assignments/media-types/text/csv> ;
                     dcat:packageFormat <http://www.iana.org/assignments/media-types/application/zip> .
             }
