@@ -80,6 +80,58 @@ These handle structural mismatches where a flat property in one schema becomes a
 
 ---
 
+### Relationships Between Patterns
+
+Several patterns are conceptual counterparts: they perform the *same* structural operation in opposite directions, or they solve the *same* problem from opposite sides (source-driven vs target-driven). The diagram highlights these symmetric and complementary relationships.
+
+```mermaid
+flowchart LR
+    subgraph CL[Entity and Class-Level]
+        DCM[Direct Class Mapping]
+        SPEC[Class Specialisation / Splitting]
+        GEN[Class Generalisation / Merging]
+    end
+
+    SPEC ---|"inverse direction of"| GEN
+    SPEC -.->|"degenerates to when 1-to-1"| DCM
+    GEN -.->|"degenerates to when 1-to-1"| DCM
+```
+```mermaid
+flowchart TD
+    subgraph PL[Property-Level]
+        DPM[Direct Property Mapping]
+        IPM[Inverse Property Mapping]
+        LTC[Literal Transformation / Casting]
+        LNP[Literal-to-Node Promotion]
+    end
+    subgraph GB[Conditional / Guard-Based]
+        EXC[Existence-Conditional Mapping]
+    end
+    subgraph SR[Structural Reconstruction]
+        FLA[Flattening / Unnesting]
+        NES[Nesting / Aggregation]
+        REI[Reification / Association]
+        DEF[Default Injection / Mandatory Attribute Completion]
+    end
+
+    DPM ---|"same edge,\nfixed direction vs\ninverted direction"| IPM
+    LTC ---|"value stays a literal\nvs promoted into\na node position"| LNP
+    LNP -.->|"uses a literal as guard"| EXC
+    FLA ---|"structural inverses"| NES
+    NES -.->|"qualified variant"| REI
+    EXC ---|"source-driven construction\nvs target-driven construction"| DEF
+    DEF -.->|"completes nodes\ncreated by"| NES
+    DEF -.->|"completes nodes\ncreated by"| REI
+```
+
+Reading guide:
+
+* **Solid lines** connect counterpart pairs: each pair performs one operation in two opposite directions (specialise ↔ generalise, direct ↔ inverted edge, flatten ↔ nest, source-driven ↔ target-driven triple construction).
+* **Dotted lines** denote dependency or degeneration: specialisation/generalisation collapse into a direct class mapping when the split is 1-to-1; nesting becomes reification when the aggregated node must carry qualified metadata; default injection usually runs *after* a nesting or reification step to satisfy the newly created node's mandatory attributes.
+* **Literal Transformation vs Literal-to-Node Promotion** is a value-level counterpart pair: the literal either remains a value (after casting) or becomes a node (class, predicate, or object) selected by its own content.
+
+---
+
 Here is the extended **OEMetadata Crosswalk** table enhanced with a new **Transformation Pattern** column. This column assigns each row or container group to one of the abstract RDF transformation patterns (Direct Property Mapping, Literal Transformation, Nesting/Aggregation, Flattening/Unnesting, or Reification/Association) established in your study framework.
 
 ---
