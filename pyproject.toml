@@ -1,33 +1,43 @@
-[tool.poetry]
+[project]
 name = "omi"
 version = "1.2.0"
 description = "A library to process and translate open energy metadata."
 authors = [
-    "Hendrik Huyskens <hendrik.huyskens@rl-institut.de>",
-    "Jonas Huber <jonas.huber@rl-institut.de>",
-    "Martin Glauer <martinglauer89@gmail.com>"
+    {name = "Hendrik Huyskens", email = "hendrik.huyskens@rl-institut.de"},
+    {name = "Jonas Huber", email = "jonas.huber@rl-institut.de"},
+    {name = "Martin Glauer", email = "martinglauer89@gmail.com"},
 ]
 readme = "README.rst"
 license = "AGPL-3.0"
+requires-python = ">=3.9,<3.13"
+dependencies = [
+    "click (>=8.1.7,<9)",
+    "rdflib (>=7.0.0,<8)",
+    "python-dateutil (>=2.9.0,<3)",
+    "jsonschema (>=4.22.0,<5)",
+    "oemetadata (>=1.5.2)",
+    "frictionless (>=5.17.0,<6)",
+    "pandas (>=2.2.2,<3)",
+    "pyyaml (>=6.0,<7)",
+    "pyshacl (>=0.25)",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<3.13"
-click = "^8.1.7"
-rdfLib = "^7.0.0"
-python-dateutil = "^2.9.0"
-jsonschema = "^4.22.0"
-oemetadata = ">=1.5.2"
-frictionless = "^5.17.0"
-pandas = "^2.2.2"
-sqlalchemy = {version = ">=1.4", optional = true}
+[project.optional-dependencies]
+sqlalchemy = ["sqlalchemy (>=1.4)"]
 
-[tool.poetry.group.dev.dependencies]
-tox = "^4.15.0"
-pytest = "^8.2.1"
-pre-commit = "^3.7.1"
+[project.scripts]
+omi = "omi.cli:main"
+
+[dependency-groups]
+dev = [
+    "tox (>=4.15.0,<5)",
+    "pytest (>=8.2.1,<9)",
+    "pytest-cov (>=3.0,<8)",
+    "pre-commit (>=3.7.1,<4)",
+]
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
@@ -79,6 +89,3 @@ unfixable = ["UP007", "I001"]
 "*/__init__.py" = [
   "D104",  # Missing docstring in public package
 ]
-
-[tool.poetry.scripts]
-omi = "omi.cli:main"
